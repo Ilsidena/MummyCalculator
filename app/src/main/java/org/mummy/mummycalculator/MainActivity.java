@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Calculator calculator = new Calculator ();
+        //Calculator calculator = new Calculator ();
 
         final TextView textWindow = (TextView) findViewById(R.id.textWindow);
 
@@ -63,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
         View.OnClickListener listener = new View.OnClickListener() {
             private StringBuilder input = new StringBuilder();
-            private Calculator calculator;
 
             @Override
             public void onClick (View view) {
+
                 switch (view.getId()) {
                     case R.id.lshift:
                         input.append(" << ");
@@ -141,19 +141,20 @@ public class MainActivity extends AppCompatActivity {
                         textWindow.setText(input.toString());
                         break;
                     case R.id.clear:
-                        input.delete(0, input.length() - 1);
+                        input = new StringBuilder();
                         textWindow.setText(input.toString());
                         break;
                     case R.id.result:
                         //String inputString = input.toString();
+                        Calculator calculator = new Calculator ();
                         try {
                             int result = calculator.getResult(input.toString());
-                            textWindow.setText(result);
-                            input.delete(0, input.length() - 1);
+                            textWindow.setText(Integer.toString(result));
+                            input = new StringBuilder();
                             input.append(result);
                         }
                         catch(CalculatorException exception) {
-                            textWindow.setText(exception.getMessage());
+                            System.out.println(exception.getMessage());
                         }
                         break;
                     case R.id.point:
