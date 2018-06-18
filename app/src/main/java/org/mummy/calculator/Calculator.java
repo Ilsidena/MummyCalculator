@@ -1,12 +1,12 @@
-package org.suai.calculator;
+package org.mummy.calculator;
 
 import java.util.Arrays;
 
 public class Calculator {
-    static private char[] input;
-    static private Lexeme lexeme;
-    static private int index;
-    static private int tokenSize;
+    private char[] input = null;
+    private Lexeme lexeme = null;
+    private int index;
+    private int tokenSize;
 
     /*public Calculator(char[] input) {
         this.input = input;
@@ -14,7 +14,7 @@ public class Calculator {
         index = 0;
     }*/
 
-    static public int getResult(String inputString) {
+    public int getResult(String inputString) {
         input = inputString.toCharArray();
         lexeme = new Lexeme();
         Int result = new Int();
@@ -25,24 +25,24 @@ public class Calculator {
         return result.value;
     }
 
-    static private boolean isEnd() {
+    private boolean isEnd() {
         return index >= input.length;
     }
 
-    static private boolean isSpase() {
+    private boolean isSpase() {
         return (input[index] == ' ' ||
                 input[index] == '\t' ||
                 input[index] == '\n');
     }
 
-    static private boolean isDigit() {
+    private boolean isDigit() {
         if (!isEnd ())
             return Character.isDigit(input[index]);
         else
             return false;
     }
 
-    static private boolean isAlpha() {
+    private boolean isAlpha() {
         if (!isEnd())
             return ((input[index] >= 'a' && input[index] <= 'z') ||
                     (input[index] >= 'A' && input[index] <= 'Z'));
@@ -50,7 +50,7 @@ public class Calculator {
             return false;
     }
 
-    static private void getToken() {
+    private void getToken() {
         if (isEnd()) {
             return;
         }
@@ -179,7 +179,7 @@ public class Calculator {
         }
     }
 
-    static private void or (Int result) {
+    private void or (Int result) {
         Int argument = new Int ();
         char operator;
         xor(result);
@@ -191,7 +191,7 @@ public class Calculator {
         }
     }
 
-    static private void xor (Int result) {
+    private void xor (Int result) {
         Int argument = new Int ();
         char operator;
         and(result);
@@ -203,7 +203,7 @@ public class Calculator {
         }
     }
 
-    static private void and (Int result) {
+    private void and (Int result) {
         Int argument = new Int ();
         char operator;
         shift(result);
@@ -215,7 +215,7 @@ public class Calculator {
         }
     }
 
-    static private void shift (Int result) {
+    private void shift (Int result) {
         Int argument = new Int ();
         char operator;
         add(result);
@@ -227,7 +227,7 @@ public class Calculator {
         }
     }
 
-    static private void add (Int result) {
+    private void add (Int result) {
         Int argument = new Int ();
         char operator;
         mul(result);
@@ -239,7 +239,7 @@ public class Calculator {
         }
     }
 
-    static private void mul (Int result) {
+    private void mul (Int result) {
         Int argument = new Int ();
         char operator;
         pow(result);
@@ -251,7 +251,7 @@ public class Calculator {
         }
     }
 
-    static private void pow (Int result) {
+    private void pow (Int result) {
         Int argument = new Int ();
         unary(result);
 
@@ -262,7 +262,7 @@ public class Calculator {
         }
     }
 
-    static private void unary (Int result) {
+    private void unary (Int result) {
         char operator = 0;
 
         if ((lexeme.tokenType == Lexeme.TOKENTYPE.DELIMITER) &&
@@ -321,7 +321,7 @@ public class Calculator {
         }
     }
 
-    static private void calculate (char operation, Int result, Int argument) {
+    private void calculate (char operation, Int result, Int argument) {
         int tmp;
 
         switch (operation)
@@ -370,7 +370,7 @@ public class Calculator {
         }
     }
 
-    static private String getLexeme () {
+    private String getLexeme () {
         StringBuilder builder = new StringBuilder ();
 
         for (int i = 0; i < tokenSize; i++ ) {

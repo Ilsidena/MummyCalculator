@@ -1,4 +1,4 @@
-package org.suai.calculator;
+package org.mummy.calculator;
 
 public class CalculatorException extends RuntimeException {
     final static String [] errors = {"Синтаксическая ошибка"

@@ -1,4 +1,4 @@
-package org.suai.calculator;
+package org.mummy.calculator;
 
 public class Lexeme {
     public Lexeme() {
