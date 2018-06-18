@@ -1,21 +1,3 @@
-/*
-package org.mummy.mummycalculator;
-
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import org.mummy.mummycalculator.R;
-
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-}
-*/
-
 package org.mummy.mummycalculator;
 
 import android.support.v7.app.AppCompatActivity;
@@ -24,17 +6,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-//import org.mummy.calculator.R;
-import org.suai.calculator.Calculator;
-import org.suai.calculator.CalculatorException;
+import org.mummy.calculator.Calculator;
+import org.mummy.calculator.CalculatorException;
 
 public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Button buttonMenu = (Button) findViewById(R.id.menu);
+        Calculator calculator = new Calculator ();
+
         final TextView textWindow = (TextView) findViewById(R.id.textWindow);
 
         Button buttonLeftShift = (Button) findViewById(R.id.lshift);
@@ -76,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         Button buttonRightBracket = (Button) findViewById(R.id.rbracket);
         Button button0 = (Button) findViewById(R.id.zero);
         Button buttonSign = (Button) findViewById(R.id.sign);
+        Button buttonPoint = (Button) findViewById(R.id.point);
 
         View.OnClickListener listener = new View.OnClickListener() {
             private StringBuilder input = new StringBuilder();
@@ -163,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.result:
                         //String inputString = input.toString();
                         try {
-                            int result = Calculator.getResult(input.toString());
+                            int result = calculator.getResult(input.toString());
                             textWindow.setText(result);
                             input.delete(0, input.length() - 1);
                             input.append(result);
@@ -171,6 +155,10 @@ public class MainActivity extends AppCompatActivity {
                         catch(CalculatorException exception) {
                             textWindow.setText(exception.getMessage());
                         }
+                        break;
+                    case R.id.point:
+                        input.append('.');
+                        textWindow.setText(input.toString());
                         break;
                     case R.id.zero:
                         input.append('0');
@@ -277,5 +265,6 @@ public class MainActivity extends AppCompatActivity {
         buttonClear.setOnClickListener(listener);
         buttonClearElement.setOnClickListener(listener);
         buttonResult.setOnClickListener(listener);
+        buttonPoint.setOnClickListener(listener);
     }
 }
